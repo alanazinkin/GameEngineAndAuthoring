@@ -1,5 +1,16 @@
 package oogasalad.engine.view.util;
 
+import java.io.IOException;
+import java.lang.reflect.InvocationTargetException;
+import java.util.zip.DataFormatException;
+import oogasalad.exceptions.BlueprintParseException;
+import oogasalad.exceptions.EventParseException;
+import oogasalad.exceptions.GameObjectParseException;
+import oogasalad.exceptions.HitBoxParseException;
+import oogasalad.exceptions.LayerParseException;
+import oogasalad.exceptions.LevelDataParseException;
+import oogasalad.exceptions.PropertyParsingException;
+import oogasalad.exceptions.SpriteParseException;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -64,11 +75,12 @@ class ViewObjectToImageConverterTest extends ApplicationTest {
     dvField.setAccessible(true);
     DefaultView dv = (DefaultView) dvField.get(viewState);
     Scene scene = dv.getCurrentScene();
+    assertNotNull(scene);
 
     // 3) lookup the GameDisplay by its CSS ID
     Parent root = scene.getRoot();
     GameDisplay gameDisp = (GameDisplay) root.lookup("#game-display");
-    assertNotNull(gameDisp, "GameDisplay should have been added with id='game-display'");
+    assertNotNull(gameDisp, "GameDisplay should have been added");
 
     // 3) grab its LevelDisplay child
     LevelDisplay lvlDisp = gameDisp.getChildrenUnmodifiable().stream()
@@ -99,9 +111,40 @@ class ViewObjectToImageConverterTest extends ApplicationTest {
 
     // 7) select a new level and re-render
     Platform.runLater(() -> {
-      new ButtonActionFactory(viewState)
-          .selectLevel("dinosaurgame", "DinoLevel1.xml")
-          .run();
+      try {
+        gameManager
+            .selectGame("data/gameData/levels/dinosaurgame/DinoLevel1.xml");
+      } catch (DataFormatException e) {
+        throw new RuntimeException(e);
+      } catch (IOException e) {
+        throw new RuntimeException(e);
+      } catch (ClassNotFoundException e) {
+        throw new RuntimeException(e);
+      } catch (InvocationTargetException e) {
+        throw new RuntimeException(e);
+      } catch (NoSuchMethodException e) {
+        throw new RuntimeException(e);
+      } catch (InstantiationException e) {
+        throw new RuntimeException(e);
+      } catch (IllegalAccessException e) {
+        throw new RuntimeException(e);
+      } catch (LayerParseException e) {
+        throw new RuntimeException(e);
+      } catch (LevelDataParseException e) {
+        throw new RuntimeException(e);
+      } catch (PropertyParsingException e) {
+        throw new RuntimeException(e);
+      } catch (SpriteParseException e) {
+        throw new RuntimeException(e);
+      } catch (EventParseException e) {
+        throw new RuntimeException(e);
+      } catch (HitBoxParseException e) {
+        throw new RuntimeException(e);
+      } catch (BlueprintParseException e) {
+        throw new RuntimeException(e);
+      } catch (GameObjectParseException e) {
+        throw new RuntimeException(e);
+      }
       try {
         gameManager.displayGameObjects();
       } catch (Exception e) {
