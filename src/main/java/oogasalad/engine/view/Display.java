@@ -77,4 +77,8 @@ public abstract class Display extends Group {
    * @param gameWon boolean indicating whether the game has been won
    */
   public abstract void renderEndGameScreen(boolean gameWon);
+
+  public void removeObjectImages() {
+
+  }
 }

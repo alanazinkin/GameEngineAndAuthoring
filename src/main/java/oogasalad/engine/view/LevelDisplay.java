@@ -90,4 +90,9 @@ public class LevelDisplay extends Display {
     throw new UnsupportedOperationException(resourceManager.getText("exceptions", "CannotDisplayEndGameScreen"));
   }
 
+  @Override
+  public void removeObjectImages() {
+    this.getChildren().clear();
+    myConverter.clearUUIDToImageMap();
+  }
 }

@@ -1,5 +1,7 @@
 package oogasalad.engine.view.util;
 
+import oogasalad.engine.view.GameDisplay;
+import oogasalad.engine.view.LevelDisplay;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -49,25 +51,45 @@ class ViewObjectToImageConverterTest extends ApplicationTest {
   }
 
   @Test
-  void testConverterMapClearedAfterSelectLevelAndDisplay() throws Exception {
-    // 1️⃣ Start the game
+  void testRealConverterClearsMapAfterLevelSwitch() throws Exception {
+    // 1) start the game
     Runnable start = new ButtonActionFactory(viewState).startGame();
     Platform.runLater(start);
     WaitForAsyncUtils.waitForFxEvents();
 
-    // 2️⃣ Convert a dummy object → map size should be 1
-    ImmutableGameObject obj = makeDummy();
-    converter.convertObjectsToImages(List.of(obj));
+    // 2) grab the GameDisplay → LevelDisplay via reflection
+    Field dvField = ViewState.class.getDeclaredField("myDefaultView");
+    dvField.setAccessible(true);
+    DefaultView dv = (DefaultView) dvField.get(viewState);
 
-    Field mapField = ViewObjectToImageConverter.class
-        .getDeclaredField("UUIDToImageMap");
+    Field cdField = DefaultView.class.getDeclaredField("currentDisplay");
+    cdField.setAccessible(true);
+    Object gameDisp = cdField.get(dv);
+    assertTrue(gameDisp instanceof GameDisplay);
+
+    Field ldField = GameDisplay.class.getDeclaredField("myLevelView");
+    ldField.setAccessible(true);
+    Object levelView = ldField.get(gameDisp);
+    assertTrue(levelView instanceof LevelDisplay);
+
+    // 3) grab the converter from the LevelDisplay
+    Field convField = LevelDisplay.class.getDeclaredField("myConverter");
+    convField.setAccessible(true);
+    ViewObjectToImageConverter realConverter =
+        (ViewObjectToImageConverter) convField.get(levelView);
+
+    // 4) seed it with a dummy object
+    ImmutableGameObject obj = makeDummy();
+    realConverter.convertObjectsToImages(List.of(obj));
+
+    // assert initial size == 1
+    Field mapField = ViewObjectToImageConverter.class.getDeclaredField("UUIDToImageMap");
     mapField.setAccessible(true);
     @SuppressWarnings("unchecked")
-    Map<String, ObjectImage> initialMap =
-        (Map<String, ObjectImage>) mapField.get(converter);
-    assertEquals(1, initialMap.size(), "Expected 1 entry after first conversion");
+    Map<?,?> mapBefore = (Map<?,?>) mapField.get(realConverter);
+    assertEquals(1, mapBefore.size(), "should have 1 entry after first render");
 
-    // 3️⃣ Simulate “Select Level” and then force displayGameObjects()
+    // 5) switch level and re-render
     Platform.runLater(() -> {
       new ButtonActionFactory(viewState)
           .selectLevel("dinosaurgame", "DinoLevel1.xml")
@@ -80,16 +102,13 @@ class ViewObjectToImageConverterTest extends ApplicationTest {
     });
     WaitForAsyncUtils.waitForFxEvents();
 
-    // 4️⃣ Grab the same map and assert it’s now empty
+    // 6) check that the same converter’s map is now empty
     @SuppressWarnings("unchecked")
-    Map<String, ObjectImage> postMap =
-        (Map<String, ObjectImage>) mapField.get(converter);
-    assertEquals(
-        0,
-        postMap.size(),
-        "Expected converter map to be cleared after selectLevel + displayGameObjects()"
-    );
+    Map<?,?> mapAfter = (Map<?,?>) mapField.get(realConverter);
+    assertEquals(0, mapAfter.size(),
+        "Expected LevelDisplay’s converter to have cleared its map after level switch");
   }
+
 
   private ImmutableGameObject makeDummy() throws FileNotFoundException {
     UUID uuid = UUID.randomUUID();

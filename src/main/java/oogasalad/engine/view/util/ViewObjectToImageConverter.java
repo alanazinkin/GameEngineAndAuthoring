@@ -156,4 +156,9 @@ public class ViewObjectToImageConverter {
     }
     throw new NoSuchElementException(resourceManager.getText("Exceptions", "NoImage"));
   }
+
+
+  public void clearUUIDToImageMap() {
+    UUIDToImageMap.clear();
+  }
 }
