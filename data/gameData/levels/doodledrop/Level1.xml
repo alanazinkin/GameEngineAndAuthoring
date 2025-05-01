@@ -464,7 +464,10 @@
         </conditionSet>
       </conditions>
       <outcomes>
-        <outcome name="WIN_GAME">
+        <outcome name="SELECT_LEVEL">
+          <stringParameters>
+            <parameter name="levelPath" value="data/gameData/levels/doodlejump/Level1.xml"/>
+          </stringParameters>
         </outcome>
       </outcomes>
     </event>
