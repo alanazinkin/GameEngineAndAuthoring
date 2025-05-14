@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<spriteFile height="186" imagePath="celeste-sprites.png" width="105">
+    <sprite height="8" name="flower" width="8" x="1" y="1"/>
+</spriteFile>
