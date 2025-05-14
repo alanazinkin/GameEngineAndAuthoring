@@ -24,7 +24,6 @@ This project implements an authoring environment and player for multiple related
     * [Undoing Git commits](https://stackoverflow.com/questions/22682870/how-can-i-undo-pushed-commits-using-git)
 * Resources used directly (including AI assistance)
     * ChatGPT and Claude AI assisted in writing code
-    *
 
 ### Running the Program
 
@@ -35,6 +34,8 @@ This project implements an authoring environment and player for multiple related
     * Resource Properties files (config, css, gameIcons, i18n, server, and shared folders)
 
 * Interesting data files:
+   * Celeste Game
+   * Editor Prefabricated data: editorData/prefabricatedData/prefab.xml
 
 * Key/Mouse inputs:
     * Key and Mouse inputs are entirely decided by the user within the level file, allowing for
@@ -73,14 +74,25 @@ For security reasons, options #1 and #2 are recommended for production use.
     * Assumed that each level was discrete and that users would play one level at a time rather than
       progressing through a series of continuous levels. This simplified the process of level
       progression by removing the need to store the next level within each file.
+   * Assumed that Editor and Engine would only be connected through the level files themselves rather
+     than directly at runtime. This assumption led us to create two versions of GameObject data,
+     GameObject for the Engine and EditorObject for the Editor. This resulted in
+     duplicated code and unnecessary extra conversions and more work.
 
 * Known Bugs:
 
 * Features implemented:
+   * Users can play a variety of games and create their own games within the editor
 
 * Features unimplemented:
+   * Users cannot select prefabricated events
+   * Events must be recreated for each object rather than applied from a shared event system
 
 * Noteworthy Features:
+   * Networked players
+   * AI ChatBot assistant
+   * Prefabricated Editor objects
+   * Editor Sprite Sheet Parser
 
 ### Assignment Impressions
 
