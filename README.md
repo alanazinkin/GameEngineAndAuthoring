@@ -1,8 +1,6 @@
-# oogasalad
+# Game Engine and Editor
 
-## It's Thyme to Eat: SALAD
-
-## Billy McCune, Alana Zinkin, Jacob You, Gage Garcia, Tatum McKinnis, Aksel Bell, Luke Nam
+## Team 3: Billy McCune, Alana Zinkin, Jacob You, Gage Garcia, Tatum McKinnis, Aksel Bell, Luke Nam
 
 This project implements an authoring environment and player for multiple related games.
 
