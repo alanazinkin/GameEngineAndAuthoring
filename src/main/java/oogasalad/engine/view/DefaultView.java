@@ -130,7 +130,7 @@ public class DefaultView implements ViewAPI {
   /**
    * Set the current display.
    */
-  void setCurrentDisplay(Display display) {
+  public void setCurrentDisplay(Display display) {
     currentDisplay = display;
     currentScene.setRoot(currentDisplay);
   }
@@ -195,6 +195,10 @@ public class DefaultView implements ViewAPI {
     currentDisplay.renderEndGameScreen(gameWon);
   }
 
+
+  public void removeObjectImages() {
+    currentDisplay.removeObjectImages();
+  }
 }
 
 

@@ -94,6 +94,7 @@ public class DefaultGameManager implements GameManagerAPI, InputProvider {
   public void selectGame(String filePath)
       throws DataFormatException, IOException, ClassNotFoundException, InvocationTargetException,
       NoSuchMethodException, InstantiationException, IllegalAccessException, LayerParseException, LevelDataParseException, PropertyParsingException, SpriteParseException, EventParseException, HitBoxParseException, BlueprintParseException, GameObjectParseException {
+    myView.removeObjectImages();
     currentLevel = filePath;
     myCurrentGamePath = filePath;
     myLevelAPI.selectGame(filePath);

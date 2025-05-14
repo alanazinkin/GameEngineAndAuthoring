@@ -82,4 +82,9 @@ public class GameDisplay extends Display {
     this.getChildren().add(winScreen);
     winScreen.renderEndGameScreen(gameWon);
   }
+
+  @Override
+  public void removeObjectImages() {
+    myLevelView.removeObjectImages();
+  }
 }

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map minX="0" minY="16" maxX="40" maxY="32">
+  <cameraData type="Tracker">
+    <stringProperties>
+      <property name="objectToTrack" value="84eaddc8-3efd-443a-936d-c9f35c25b422"/>
+    </stringProperties>
+    <doubleProperties>
+      <property name="zoom" value="2.0"/>
+      <property name="cameraOffsetX" value="0.0"/>
+      <property name="cameraOffsetY" value="0.0"/>
+    </doubleProperties>
+  </cameraData>
+  <layers>
+    <layer name="layer_0" width="40" height="16" z="0">
+      <data>
+        <object name = "platform_24_24_0977" id="1" coordinates="(24,24), (0,24), (16,24), (32,24), (8,24)" uid="ff2b185f-b662-487f-a9d8-ba7d658fc736, f75060b4-2c6c-460e-ac06-68dc5fcbe2fc, 83807cbd-bf2d-442c-9399-ba462266acde, 55951177-e31e-459a-b2f5-0f9e86366f46, ecba3d12-5926-4815-a8e9-9c5ad6c48162" />
+        <object name = "Player_16_16_f34a" id="2" coordinates="(16,16)" uid="84eaddc8-3efd-443a-936d-c9f35c25b422" />
+      </data>
+    </layer>
+  </layers>
+  <game name="celeste">
+    <objectGroup name="blocks">
+      <object
+  spriteName="center_block1"
+  type="platform"
+  id="1"
+  spriteFile="center_block1.xml"
+  hitBoxWidth="8"
+  hitBoxHeight="8"
+  hitBoxShape="RECTANGLE"
+  spriteDx="0"
+  spriteDy="0"
+  eventIDs=""
+  velocityX="0.00"
+  velocityY="0.00"
+  rotation="0.00">
+        <properties>
+          <stringProperties>
+          </stringProperties>
+          <doubleProperties>
+            <property name="jump_force" value="0.0"/>
+            <property name="gravity" value="0.0"/>
+          </doubleProperties>
+        </properties>
+      </object>
+    </objectGroup>
+    <objectGroup name="player">
+      <object
+  spriteName="madeline_walk_back"
+  type="Player"
+  id="2"
+  spriteFile="madeline_walk_back.xml"
+  hitBoxWidth="7"
+  hitBoxHeight="7"
+  hitBoxShape="RECTANGLE"
+  spriteDx="0"
+  spriteDy="0"
+  eventIDs="move_left,collide_platform,gravity"
+  velocityX="0.00"
+  velocityY="0.00"
+  rotation="0.00">
+        <properties>
+          <stringProperties>
+          </stringProperties>
+          <doubleProperties>
+            <property name="jump_force" value="0.0"/>
+            <property name="gravity" value="0.0"/>
+          </doubleProperties>
+        </properties>
+      </object>
+    </objectGroup>
+  </game>
+  <events>
+    <event type="Input" id="move_left">
+      <conditions>
+        <conditionSet>
+          <condition name="KEY_PRESSED">
+            <stringParameters>
+              <parameter name="key" value="left_arrow"/>
+            </stringParameters>
+            <doubleParameters>
+            </doubleParameters>
+          </condition>
+        </conditionSet>
+      </conditions>
+      <outcomes>
+        <outcome name="MOVE_LEFT">
+          <stringParameters>
+          </stringParameters>
+          <doubleParameters>
+            <parameter name="Speed" value="0.5"/>
+          </doubleParameters>
+        </outcome>
+      </outcomes>
+    </event>
+    <event type="Input" id="collide_platform">
+      <conditions>
+        <conditionSet>
+          <condition name="COLLIDED_WITH_GROUP">
+            <stringParameters>
+              <parameter name="group" value="platform"/>
+            </stringParameters>
+            <doubleParameters>
+            </doubleParameters>
+          </condition>
+        </conditionSet>
+        <conditionSet>
+        </conditionSet>
+      </conditions>
+      <outcomes>
+        <outcome name="PLATFORM_PASS_THROUGH_BEHAVIOR">
+          <stringParameters>
+          </stringParameters>
+          <doubleParameters>
+          </doubleParameters>
+        </outcome>
+      </outcomes>
+    </event>
+    <event type="Input" id="gravity">
+      <conditions>
+        <conditionSet>
+          <condition name="TRUE">
+            <stringParameters>
+            </stringParameters>
+            <doubleParameters>
+            </doubleParameters>
+          </condition>
+        </conditionSet>
+      </conditions>
+      <outcomes>
+        <outcome name="APPLY_GRAVITY">
+          <stringParameters>
+          </stringParameters>
+          <doubleParameters>
+            <parameter name="ApplyGravityAmount" value="1.0"/>
+          </doubleParameters>
+        </outcome>
+      </outcomes>
+    </event>
+  </events>
+</map>
