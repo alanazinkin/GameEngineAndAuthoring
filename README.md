@@ -1,4 +1,4 @@
-# Game Engine and Editor
+# Scrolling Platform Game Engine and Editor
 
 ## Team 3: Billy McCune, Alana Zinkin, Jacob You, Gage Garcia, Tatum McKinnis, Aksel Bell, Luke Nam
 
